@@ -1,6 +1,8 @@
-a = []
-for i in range(9):
-    a.append(int(input()))
+if __name__ == '__main__':
+    A = []
+    for i in range(9):
+        A.append(int(input()))
 
-print(max(a))
-print(int(a.index(max(a))+1))
+    A_MAX = max(A)
+    print(A_MAX)
+    print(A.index(A_MAX) + 1)
