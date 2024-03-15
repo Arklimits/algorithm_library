@@ -1,25 +1,32 @@
 import math
 
-def d(N): # 소수 판별 함수
-    if N == 1:
-        return False
-    for i in range(2, int(math.sqrt(N))+1):
-        if N % i == 0:
-            return False
-    return True
-    
-N = int(input()) # 테스트 케이스 수 입력
+arr = [0] * 10001
+arr[2] = arr[3] = 1
 
-for _ in range(N):
-    num = int(input()) # 짝수 입력
-    
-    A = num // 2 # 두 수 중 줄어드는 변수
-    B = num // 2 # 두 수 중 늘어나는 변수
-    
-    for _ in range(num // 2):
-        if d(A) and d(B): # 두 수가 소수이면 출력
-            print(A, B)
-            break
-        else: # 소수가 아니면 두 수를 줄이고 늘리기
-            A -= 1
-            B += 1
+def prime_list(num):
+    for token in range(2, int(math.sqrt(num))+1):
+        if num % token == 0:
+            return
+
+    arr[num] = 1
+
+
+if __name__ == '__main__':
+    for i in range(2, 10001):
+        prime_list(i)
+
+    t = int(input())
+
+    for _ in range(t):
+        n = int(input())
+
+        key1 = key2 = n // 2
+
+        for _ in range(n // 2):
+            if arr[key1] and arr[key2]:
+                print(key1, key2)
+                break
+            else:
+                key1 -= 1
+                key2 += 1
+
