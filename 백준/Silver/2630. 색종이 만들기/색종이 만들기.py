@@ -1,27 +1,31 @@
 import sys
-input = sys.stdin.readline
-n = int(input())
-B = [list(map(int, input().split())) for _ in range(n)]
-w_cnt, b_cnt = 0, 0
 
-def div_conq(x, y, N):
-    global w_cnt, b_cnt
-    tmp_cnt = 0
-    for i in range(x, x + N):
-        for j in range(y, y + N):
-            if B[i][j]:
-                tmp_cnt += 1
-    if not tmp_cnt:
-        w_cnt += 1
-    elif tmp_cnt == N**2:
-        b_cnt += 1
+
+def paper(depth, y, x):
+    global blue, white
+    box = 0
+    for i in range(y, y+depth):
+        for j in range(x, x+depth):
+            box += r[i][j]
+
+    if box == depth**2:
+        blue += 1
+    elif box == 0:
+        white += 1
     else:
-        div_conq(x, y, N // 2)
-        div_conq(x + N // 2, y, N // 2)
-        div_conq(x, y + N // 2, N // 2)
-        div_conq(x + N // 2, y + N // 2, N // 2)
+        p = depth // 2
+        paper(p, y, x)
+        paper(p, y, x + p)
+        paper(p, y + p, x)
+        paper(p, y + p, x + p)
     return
 
-div_conq(0, 0, n)
-print(w_cnt)
-print(b_cnt)
+
+n = int(sys.stdin.readline())
+B = r = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+blue = white = 0
+
+paper(n, 0, 0)
+
+print(white)
+print(blue)
