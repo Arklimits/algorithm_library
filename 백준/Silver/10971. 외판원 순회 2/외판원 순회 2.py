@@ -8,11 +8,12 @@ def travel(depth, num, hand):
         price = 0
 
         if a[hand[-1]][hand[0]] != 0:
-            hand.append(hand[0])
-            for p in range(n):
+            for p in range(n-1):
                 price += a[hand[p]][hand[p + 1]]
-
-            hand.pop()
+                if price > ans and not pivot:
+                    return
+                
+            price += a[hand[-1]][hand[0]]
 
             if price < ans or pivot:
                 ans = price
