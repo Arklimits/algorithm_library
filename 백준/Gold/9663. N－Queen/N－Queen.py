@@ -19,6 +19,8 @@ def queen(now, hand):
                 hand.append(i)
                 queen(now+1, hand)
                 hand.pop()
+                
+    return
 
 
 n = int(input())
