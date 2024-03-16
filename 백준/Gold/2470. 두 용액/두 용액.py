@@ -15,7 +15,13 @@ for i in range(n):
 
     while start <= end:
         mid = (start + end) // 2
-        if x[mid] >= -x[i]:
+        if x[mid] == -x[i]:
+            if x[mid] < x[i]:
+                print(x[mid], x[i])
+            else:
+                print(x[i], x[mid])
+            exit()
+        elif x[mid] > -x[i]:
             check = mid
             end = mid - 1
         else:
