@@ -1,19 +1,10 @@
 import sys
 
-
+    
 def travel(depth, num, hand, price):
     global ans, n, pivot
 
-    if depth == n:
-        for i in range(n):
-            if i not in hand and (a[num - 1][i] < ans or pivot):
-                hand.append(i)
-
-                travel(depth - 1, i + 1, hand, 0)
-
-                hand.pop()
-
-    elif depth == 0:
+    if depth == 0:
         if a[hand[-1]][hand[0]] != 0:
             if price > ans and not pivot:
                 return
@@ -31,7 +22,10 @@ def travel(depth, num, hand, price):
                 if i not in hand and (a[num-1][i] < ans or pivot):
                     hand.append(i)
 
-                    travel(depth - 1, i + 1, hand, price + a[num - 1][i])
+                    if depth == n:
+                        travel(depth - 1, i + 1, hand, 0)
+                    else:
+                        travel(depth - 1, i + 1, hand, price + a[num - 1][i])
 
                     hand.pop()
 
