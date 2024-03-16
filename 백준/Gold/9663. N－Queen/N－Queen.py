@@ -15,7 +15,6 @@ def queen(now, hand):
 
     for i in range(n):
         if i not in hand:
-            # print(i, hand)
             if check(i, hand):
                 hand.append(i)
                 queen(now+1, hand)
