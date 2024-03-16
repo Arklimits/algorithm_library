@@ -1,7 +1,7 @@
 def check(value, arr):
     length = len(arr)
     for depth in range(1, length + 1):
-        if value - depth == arr[length - depth] or value + depth == arr[length - depth] or value in arr:
+        if value - depth == arr[length - depth] or value + depth == arr[length - depth]:
             return False
     return True
 
