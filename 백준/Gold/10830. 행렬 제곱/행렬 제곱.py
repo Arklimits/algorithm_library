@@ -36,7 +36,6 @@ def multiply(arr, jisu):
 n, b = map(int, load().split())
 a = [list(map(int, load().split())) for _ in range(n)]
 e = [[0] * n for _ in range(n)]
-temp = []
 
 for _ in range(n):
     e[_][_] = 1
