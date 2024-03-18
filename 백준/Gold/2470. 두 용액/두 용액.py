@@ -21,16 +21,16 @@ for i in range(n):
         else:
             start = mid + 1
 
-    if i + 1 <= check < n and x[check] == -x[i]:
-        print(x[i], x[check])
-        exit()
+    if i + 1 <= check < n:
+        if x[check] == -x[i]:
+            print(x[i], x[check])
+            exit()
+        elif abs(x[i] + x[check]) < result:
+            result = abs(x[i] + x[check])
+            lp, rp = i, check
 
     if i + 1 <= check - 1 < n and abs(x[i] + x[check - 1]) < result:
         result = abs(x[i] + x[check - 1])
         lp, rp = i, check - 1
-
-    if i + 1 <= check < n and abs(x[i] + x[check]) < result:
-        result = abs(x[i] + x[check])
-        lp, rp = i, check
 
 print(x[lp], x[rp])
