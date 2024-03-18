@@ -1,7 +1,7 @@
 import sys
 
 
-def array_builder(depth, num, hand):
+def array_builder(depth, hand, basket):
     global max_ans, n
 
     if depth == 0:
@@ -14,17 +14,22 @@ def array_builder(depth, num, hand):
             max_ans = ans
             return
     else:
-        for i in range(n):
-            if i not in hand:
-                hand.append(i)
-                array_builder(depth-1, i+1, hand)
-                hand.pop()
+        for _ in range(depth):
+            temp = basket[0]
+            del basket[0]
+            hand.append(temp)
+            
+            array_builder(depth-1, hand, basket)
+            
+            hand.pop()
+            basket.append(temp)
 
 
 max_ans = 0
 n = int(sys.stdin.readline())
 a = list(map(int, sys.stdin.readline().split()))
+arr = [t for t in range(n)]
 
-array_builder(n, 0, [])
+array_builder(n, [], arr)
 
 print(max_ans)
