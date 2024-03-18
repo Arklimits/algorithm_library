@@ -29,8 +29,9 @@ for i in range(n):
             result = abs(x[i] + x[check])
             lp, rp = i, check
 
-    if i + 1 <= check - 1 < n and abs(x[i] + x[check - 1]) < result:
-        result = abs(x[i] + x[check - 1])
-        lp, rp = i, check - 1
+    if i + 1 <= check - 1 < n:
+        if abs(x[i] + x[check - 1]) < result:
+            result = abs(x[i] + x[check - 1])
+            lp, rp = i, check - 1
 
 print(x[lp], x[rp])
