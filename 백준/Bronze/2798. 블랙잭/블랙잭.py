@@ -3,20 +3,22 @@ import sys
 
 def blackjack(depth, num, hand):
     global m, card_max
+    cards = sum(hand)
+    if cards > m:
+        return
 
     if depth == 0:
-        if sum(hand) == m:
+        if cards == m:
             hand.sort()
-            print(sum(hand))
+            print(cards)
             exit(0)
-        elif m > sum(hand) >= card_max:
-            card_max = sum(hand)
+        elif m > cards >= card_max:
+            card_max = cards
 
         return
 
-
     for i in range(num, len(arr)):
-        if num < m and sum(hand) < m:
+        if num < m:
             hand.append(arr[i])
             blackjack(depth-1, i+1, hand)
             hand.pop()
