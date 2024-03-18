@@ -12,15 +12,16 @@ def array_builder(depth, hand, basket):
 
         if ans > max_ans:
             max_ans = ans
-            return
+
+        return
     else:
         for _ in range(depth):
             temp = basket[0]
             del basket[0]
             hand.append(temp)
-            
+
             array_builder(depth-1, hand, basket)
-            
+
             hand.pop()
             basket.append(temp)
 
