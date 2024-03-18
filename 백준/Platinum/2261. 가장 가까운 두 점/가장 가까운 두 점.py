@@ -4,10 +4,11 @@ import sys
 def min_check(start, end):
     dist_min = 2 * 20000 ** 2
 
-    for i in range(start, end - 1):
+    for i in range(start, end-1):
         for j in range(i + 1, end):
             dist = (arr[i][0] - arr[j][0]) ** 2 + (arr[i][1] - arr[j][1]) ** 2
-            dist_min = min(dist_min, dist)
+            if dist_min > dist:
+                dist_min = dist
     return dist_min
 
 
@@ -31,7 +32,7 @@ def travel(start, end):
 
     check.sort(key=lambda x: x[1])
 
-    for i in range(len(check)):
+    for i in range(len(check)-1):
         now = check[i]
         for j in range(i+1, len(check)):
             compare = check[j]
