@@ -14,22 +14,21 @@ def travel(depth, start, basket, price):
             price += w[start][first]
             ans = min(ans, price)
 
-    else:
-        for i in range(depth):
-            dest = basket[0]
-            del basket[0]
+    for i in range(depth):
+        dest = basket[0]
+        del basket[0]
 
-            if 0 < w[start][dest] < ans:
-                flag[dest] = n - depth + 1
-                if depth == n:
-                    first = dest
-                    travel(depth - 1, dest, basket, 0)
-                else:
-                    travel(depth - 1, dest, basket, price + w[start][dest])
+        if 0 < w[start][dest] < ans:
+            flag[dest] = n - depth + 1
+            if depth == n:
+                first = dest
+                travel(depth - 1, dest, basket, 0)
+            else:
+                travel(depth - 1, dest, basket, price + w[start][dest])
 
-                flag[dest] = 0
+            flag[dest] = 0
 
-            basket.append(dest)
+        basket.append(dest)
 
 
 ans = int(1e10)
