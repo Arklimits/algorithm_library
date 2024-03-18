@@ -1,43 +1,43 @@
 import sys
 
-    
-def travel(depth, num, hand, price):
-    global ans, n, pivot
+
+def load(): return sys.stdin.readline()
+
+
+def travel(depth, start, basket, price):
+    global ans, n
 
     if depth == 0:
-        if a[hand[-1]][hand[0]] != 0:
-            if price > ans and not pivot:
+        if w[flag.index(n)][flag.index(1)] != 0:
+            if price > ans:
                 return
-
-            price += a[hand[-1]][hand[0]]
-
-            if price < ans or pivot:
-                ans = price
-                pivot = 0
-                return
+            price += w[flag.index(n)][flag.index(1)]
+            ans = min(ans, price)
 
     else:
-        for i in range(n):
-            if a[num - 1][i] != 0:
-                if i not in hand and (a[num-1][i] < ans or pivot):
-                    hand.append(i)
+        for i in range(depth):
+            dest = basket[0]
+            del basket[0]
 
-                    if depth == n:
-                        travel(depth - 1, i + 1, hand, 0)
-                    else:
-                        travel(depth - 1, i + 1, hand, price + a[num - 1][i])
+            if 0 < w[start][dest] < ans:
+                flag[dest] = n - depth + 1
+                if depth == n:
+                    travel(depth - 1, dest, basket, 0)
+                else:
+                    travel(depth - 1, dest, basket, price + w[start][dest])
 
-                    hand.pop()
+                flag[dest] = 0
+
+            basket.append(dest)
 
 
-a = []
-ans = 0
-pivot = 1
-n = int(sys.stdin.readline())
+ans = int(1e10)
+n = int(load())
 
-for t in range(n):
-    a.append(list(map(int, input().split())))
+flag = [0] * n
+arr = [t for t in range(n)]
+w = [list(map(int, load().split())) for t in range(n)]
 
-travel(n, 0, [], 0)
+travel(n, 0, arr, 0)
 
 print(ans)
