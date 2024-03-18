@@ -9,15 +9,14 @@ def queen(now, basket):
         pivot = basket[0]
         basket.remove(pivot)
 
-        if not hand[pivot]:
-            if not up[now + pivot] and not down[now - pivot]:
-                hand[pivot] = 1
-                up[now + pivot] = down[now - pivot] = 1
+        if not up[now + pivot] and not down[now - pivot]:
+            hand[pivot] = 1
+            up[now + pivot] = down[now - pivot] = 1
 
-                queen(now + 1, basket)
+            queen(now + 1, basket)
 
-                hand[pivot] = 0
-                up[now + pivot] = down[now - pivot] = 0
+            hand[pivot] = 0
+            up[now + pivot] = down[now - pivot] = 0
 
         basket.append(pivot)
 
