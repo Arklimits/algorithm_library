@@ -1,12 +1,4 @@
-def check(value, arr):
-    length = len(arr)
-    for depth in range(1, length + 1):
-        if value - depth == arr[length - depth] or value + depth == arr[length - depth]:
-            return False
-    return True
-
-
-def queen(now, hand):
+def queen(now, hand, handup, handdown):
     global count
 
     if now >= n:
@@ -15,17 +7,23 @@ def queen(now, hand):
 
     for i in range(n):
         if i not in hand:
-            if check(i, hand):
+            if now + i not in handup and now - i not in handdown:
                 hand.append(i)
-                queen(now+1, hand)
+                handup.append(now + i)
+                handdown.append(now - i)
+
+                queen(now + 1, hand, handup, handdown)
+
                 hand.pop()
-                
+                handup.pop()
+                handdown.pop()
+
     return
 
 
 n = int(input())
 count = 0
 
-queen(0, [])
+queen(0, [], [], [])
 
 print(count)
