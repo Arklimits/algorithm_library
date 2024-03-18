@@ -6,16 +6,14 @@ def load(): return sys.stdin.readline()
 
 def travel(depth, start, basket, price):
     global ans, n, first
-    
+
     if price > ans:
         return
-    
+
     if depth == 0:
         if 0 < w[start][first] < ans:
             price += w[start][first]
             ans = min(ans, price)
-            
-    
 
     for i in range(depth):
         dest = basket[0]
