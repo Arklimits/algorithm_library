@@ -27,8 +27,8 @@ n = int(input())
 count = 0
 
 hand = [0] * n
-up = [0] * n * 2
-down = [0] * n * 2
+up = [0] * (n * 2 - 1)
+down = [0] * (n * 2 - 1)
 
 arr = [i for i in range(n)]
 
