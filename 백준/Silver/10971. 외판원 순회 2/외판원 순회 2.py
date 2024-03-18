@@ -5,13 +5,13 @@ def load(): return sys.stdin.readline()
 
 
 def travel(depth, start, basket, price):
-    global ans, n
+    global ans, n, first
 
     if depth == 0:
-        if w[flag.index(n)][flag.index(1)] != 0:
+        if 0 < w[start][first] < ans:
             if price > ans:
                 return
-            price += w[flag.index(n)][flag.index(1)]
+            price += w[start][first]
             ans = min(ans, price)
 
     else:
@@ -22,6 +22,7 @@ def travel(depth, start, basket, price):
             if 0 < w[start][dest] < ans:
                 flag[dest] = n - depth + 1
                 if depth == n:
+                    first = dest
                     travel(depth - 1, dest, basket, 0)
                 else:
                     travel(depth - 1, dest, basket, price + w[start][dest])
@@ -33,6 +34,7 @@ def travel(depth, start, basket, price):
 
 ans = int(1e10)
 n = int(load())
+first = 0
 
 flag = [0] * n
 arr = [t for t in range(n)]
