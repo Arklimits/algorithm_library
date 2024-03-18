@@ -7,7 +7,7 @@ x = list(map(int, sys.stdin.readline().split()))
 
 x.sort()
 
-small, big = 0, n - 1
+lp, rp = 0, n - 1
 
 for i in range(n):
     check = n
@@ -15,24 +15,22 @@ for i in range(n):
 
     while start <= end:
         mid = (start + end) // 2
-        if x[mid] == -x[i]:
-            if x[mid] < x[i]:
-                print(x[mid], x[i])
-            else:
-                print(x[i], x[mid])
-            exit()
-        elif x[mid] > -x[i]:
+        if x[mid] >= -x[i]:
             check = mid
             end = mid - 1
         else:
             start = mid + 1
 
+    if i + 1 <= check < n and x[check] == -x[i]:
+        print(x[i], x[check])
+        exit()
+
     if i + 1 <= check - 1 < n and abs(x[i] + x[check - 1]) < result:
         result = abs(x[i] + x[check - 1])
-        small, big = i, check - 1
+        lp, rp = i, check - 1
 
     if i + 1 <= check < n and abs(x[i] + x[check]) < result:
         result = abs(x[i] + x[check])
-        small, big = i, check
+        lp, rp = i, check
 
-print(x[small], x[big])
+print(x[lp], x[rp])
