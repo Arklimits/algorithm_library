@@ -10,12 +10,10 @@ def queen(now, basket):
         del basket[0]
 
         if not up[now + pivot] and not down[now - pivot]:
-            hand[pivot] = 1
             up[now + pivot] = down[now - pivot] = 1
 
             queen(now + 1, basket)
 
-            hand[pivot] = 0
             up[now + pivot] = down[now - pivot] = 0
 
         basket.append(pivot)
@@ -26,7 +24,6 @@ def queen(now, basket):
 n = int(input())
 count = 0
 
-hand = [0] * n
 up = [0] * (n * 2 - 1)
 down = [0] * (n * 2 - 1)
 
