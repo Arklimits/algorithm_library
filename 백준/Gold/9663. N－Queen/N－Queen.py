@@ -7,7 +7,7 @@ def queen(now, basket):
 
     for i in range(n - now):
         pivot = basket[0]
-        basket.remove(pivot)
+        del basket[0]
 
         if not up[now + pivot] and not down[now - pivot]:
             hand[pivot] = 1
