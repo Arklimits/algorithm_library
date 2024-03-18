@@ -13,12 +13,15 @@ def travel(depth, start, basket, price):
                 return
             price += w[start][first]
             ans = min(ans, price)
-
+            
+    if price > ans:
+        return
+    
     for i in range(depth):
         dest = basket[0]
         del basket[0]
 
-        if 0 < w[start][dest] < ans and price < ans:
+        if 0 < w[start][dest] < ans:
             flag[dest] = n - depth + 1
             if depth == n:
                 first = dest
