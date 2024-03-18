@@ -18,7 +18,7 @@ def travel(depth, start, basket, price):
         dest = basket[0]
         del basket[0]
 
-        if 0 < w[start][dest] < ans:
+        if 0 < w[start][dest] < ans and price < ans:
             flag[dest] = n - depth + 1
             if depth == n:
                 first = dest
