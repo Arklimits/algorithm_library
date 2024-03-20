@@ -23,17 +23,16 @@ def function():
                 else:
                     start = mid + 1
 
-            if i + 1 <= check < n:
+            if i + 1 <= check <= k:
                 if abs(arr[i] + arr[check] + arr[k]) < res:
                     res = abs(arr[i] + arr[check] + arr[k])
                     p1, p2, p3 = arr[i], arr[check], arr[k]
 
-            if i + 1 <= check - 1 < n:
+            if i + 1 <= check - 1 <= k:
                 if abs(arr[i] + arr[check - 1] + arr[k]) < res:
                     res = abs(arr[i] + arr[check - 1] + arr[k])
                     p1, p2, p3 = arr[i], arr[check - 1], arr[k]
 
     return p1, p2, p3
-
 
 print(*function())
