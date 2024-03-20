@@ -10,7 +10,7 @@ def function():
     p1, p2, p3 = 0, n//2, n
     res = 3000000001
 
-    for i in range(n):
+    for i in range(n-2):
         for k in reversed(range(i+1, n)):
             check = (i + k) // 2
             start, end = i+1, k-1
@@ -34,5 +34,6 @@ def function():
                     p1, p2, p3 = arr[i], arr[check - 1], arr[k]
 
     return p1, p2, p3
+
 
 print(*function())
