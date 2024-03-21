@@ -34,7 +34,6 @@ def program():
                         res.append(pos)
                         break
 
-
             else:
                 res.append(0)
 
