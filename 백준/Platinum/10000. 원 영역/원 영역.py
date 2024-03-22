@@ -1,12 +1,12 @@
 import sys
-import heapq
+from collections import deque
 
 read = sys.stdin.readline
 
 
 def program():  # 구동부
     cnt = N + 1
-    stack = []
+    stack = deque()
 
     for i in range(N):
         end, dist = arr[i]
@@ -14,11 +14,10 @@ def program():  # 구동부
         check = end
 
         while stack:
-            chk_end, chk_dist = heapq.heappop(stack)
-            chk_end = -chk_end
+            chk_end, chk_dist = stack.pop()
 
             if chk_end <= start:
-                heapq.heappush(stack, (-chk_end, chk_dist))
+                stack.append((chk_end, chk_dist))
                 break
             if chk_end - chk_dist >= start:
                 if chk_end != check:
@@ -27,7 +26,7 @@ def program():  # 구동부
             if check == start:
                 cnt += 1
 
-        heapq.heappush(stack, (-end, dist))
+        stack.append((end, dist))
 
     print(cnt)
 
