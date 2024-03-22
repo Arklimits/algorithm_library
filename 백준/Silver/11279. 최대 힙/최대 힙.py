@@ -1,5 +1,5 @@
 import sys
-from queue import PriorityQueue
+import heapq
 
 read = sys.stdin.readline
 
@@ -9,17 +9,17 @@ def program():  # 구동부
         x = int(read())
 
         if not x:
-            if queue.qsize():
-                max_val = queue.get()
+            if len(queue):
+                max_val = heapq.heappop(queue)
                 print(-max_val)
             else:
                 print(0)
         else:
-            queue.put(-x)
+            heapq.heappush(queue, -x)
 
 
 # 선언부
 N = int(read())
-queue = PriorityQueue()
+queue = []
 
 program()
