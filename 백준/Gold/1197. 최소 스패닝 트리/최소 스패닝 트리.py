@@ -1,35 +1,48 @@
 import sys
-import heapq
 
 read = sys.stdin.readline
-V, E = map(int, read().split())
+sys.setrecursionlimit(10**6)
+
+# 선언부
 NODE = []
-root = [i for i in range(V + 1)]
-
-for i in range(E):
-    a, b, c = map(int, read().split())
-    heapq.heappush(NODE, (c, a, b))
+V, E = map(int, read().split())
 
 
-def find(x):
-    if root[x] == x:
-        return x
-    else:
-        root[x] = find(root[x])
+# 구동부
+def get_root(root, x):
+    if root[x] != x:
+        root[x] = get_root(root, root[x])
         return root[x]
+    return x
 
 
-def union(x, y):
-    if find(x) != find(y):
-        root[find(y)] = find(x)
+def union(root, x, y):
+    p1 = get_root(root, x)
+    p2 = get_root(root, y)
+
+    if p1 < p2:
+        root[p2] = p1
+    else:
+        root[p1] = p2
 
 
-check = 0
-res = 0
-while check < (V - 1):
-    c, a, b = heapq.heappop(NODE)
-    if find(a) != find(b):
-        union(a, b)
-        check += 1
-        res += c
-print(res)
+def program():
+    for _ in range(E):  # V를 E로 변경
+        a, b, c = map(int, read().split())
+        NODE.append((a, b, c))
+
+    NODE.sort(key=lambda x: x[2])
+
+    root = [i for i in range(V+1)]
+
+    res = 0
+
+    for a, b, c in NODE:
+        if get_root(root, a) != get_root(root, b):
+            union(root, a, b)
+            res += c
+
+    print(res)
+
+
+program()
