@@ -8,9 +8,9 @@ def dfs(pivot):
         return
     VISIT[pivot] = 1
     for i in ARR[pivot]:
-        if not PAR[i]:
+        if not VISIT[i]:
             PAR[i] = pivot
-        dfs(i)
+            dfs(i)
 
 def program():  # 구동부
     dfs(1)
