@@ -19,13 +19,27 @@ def dfs(start, pivot, visit):
             dfs(start, i, visit)
 
 def program():  # 구동부
-    for i in range(N):
-        visit = [0 for _ in range(N)]
-        if PLACE[i]:
-            # print(f"START {i=}")
-            dfs(i, i, visit)
+    
+    if sum(PLACE) < 2:
+        print(0)
+    elif sum(PLACE) == 2:
+        print(2)
+    else:
+        for __ in range(N - 1):
+            F, T = map(int, input().split())
+            GRAPH[F - 1].append(T - 1)
+            GRAPH[T - 1].append(F - 1)
 
-    print(CNT)
+        for __ in range(N):
+            GRAPH[__].sort()
+
+        for i in range(N):
+            visit = [0 for _ in range(N)]
+            if PLACE[i]:
+                # print(f"START {i=}")
+                dfs(i, i, visit)
+    
+        print(CNT)
 
 
 # 선언부
@@ -33,13 +47,5 @@ N = int(input())
 CNT = 0
 GRAPH = [[] for _ in range(N)]
 PLACE = list(map(int, input().strip()))
-
-for __ in range(N-1):
-    F, T = map(int, input().split())
-    GRAPH[F-1].append(T-1)
-    GRAPH[T-1].append(F-1)
-
-for __ in range(N):
-    GRAPH[__].sort()
 
 program()
