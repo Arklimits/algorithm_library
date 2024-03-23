@@ -1,76 +1,77 @@
 import sys
+from collections import deque
 
 sys.setrecursionlimit(10**4)
 input = sys.stdin.readline
 
-def dfs(graph, y, x, visit) -> int:
-    if visit[y][x]:
-        return -1
+def dfs(graph, y, x, visit):
+    stack = deque([(y, x)])
 
-    res = graph[y][x]
-    visit[y][x] = 1
+    while stack:
+        py, px = stack.pop()
+        if not visit[py][px]:
+            visit[py][px] = 1
 
-    for i in range(4):
-        if graph[y+DY[i]][x+DX[i]] and not visit[y+DY[i]][x+DX[i]]:
-            res += dfs(graph, y+DY[i], x+DX[i], visit)
-    return res
+            cnt = 0
+
+            for i in range(4):
+                ny, nx = py+DY[i], px+DX[i]
+
+                if not visit[ny][nx]:
+                    if graph[ny][nx] <= 0:
+                        cnt += 1
+                    else:
+                        stack.append((ny, nx))
+
+            graph[py][px] -= cnt
+            if graph[py][px] <= 0:
+                del ICE[ICE.index((py, px))]
+
+    # for y in range(N):
+    #     print(graph[y])
 
 def program():
-    global ICE, FUT, YEAR
+    global ICE, ARR, YEAR
 
-    while 1:
-        YEAR += 1
+    for y in range(1, N-1):
+        for x in range(1, M-1):
+            if ARR[y][x]:
+                ICE.append((y, x))
+
+    while ICE:
+        cnt = 1
         visit = [[0 for _ in range(M)] for _ in range(N)]
 
-        for y in range(1, N-1):
-            for x in range(1, M-1):
-                cnt = 0
-                for i in range(4):
-                    if not ICE[y+DY[i]][x+DX[i]]:
-                        cnt += 1
+        for _ in range(len(ICE)):
+            if ICE:
+                y, x = ICE.pop(0)
+                ICE.append((y, x))
+                
+            # print(f"{YEAR=}, {cnt=} {y=} {x=}")
 
-                FUT[y][x] = ICE[y][x] - cnt
-                if FUT[y][x] < 0:
-                    FUT[y][x] = 0
-
-        # for y in range(N):
-        #     print(ICE[y])
-
-        total = 0
-        for y in range(1, N-1):
-            for x in range(1, M-1):
-                ICE[y][x] = FUT[y][x]
-                if ICE[y][x] > 0:
-                    total += ICE[y][x]
-
-        if not total:
-            print(0)
-            exit()
-
-        y_s, x_s = 0, 0
-        for y in range(1, N-1):
-            for x in range(1, M-1):
-                if ICE[y][x] > 0:
-                    y_s, x_s = y, x
+            if not visit[y][x]:
+                if cnt > 1:
+                    print(YEAR)
                     break
-            if y_s or x_s:
-                break
-
-        if dfs(ICE, y_s, x_s, visit) < total:
-            break
-
-    print(YEAR)
+                dfs(ARR, y, x, visit)
+                cnt += 1
+        else:
+            YEAR += 1
+            continue
+        break
+    else:
+        print(0)
 
 
 # 선언부
 N, M = map(int, input().split())
 YEAR = 0
+ARR = []
 ICE = []
-FUT = [[0 for _ in range(M)] for _ in range(N)]
 DY = [0, 1, 0, -1]
 DX = [1, 0, -1, 0]
 
 for _ in range(N):
-    ICE.append(list(map(int, input().split())))
+    ARR.append(list(map(int, input().split())))
 
 program()
