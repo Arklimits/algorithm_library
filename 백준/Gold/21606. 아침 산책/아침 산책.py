@@ -3,33 +3,36 @@ import sys
 sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
-def dfs(start, pivot, visit):
+def dfs(pivot, visit):
     global CNT
-
-    # print(f"NOW IN: {pivot=}")
-    if start != pivot:
-        if PLACE[pivot]:
-            CNT += 1
-            return
-
     visit[pivot] = 1
+    count = 0
 
     for i in GRAPH[pivot]:
-        if not visit[i]:
-            dfs(start, i, visit)
+        # print(f"{i=} {PLACE[i]=} {visit[i]=}")
+        if PLACE[i]:
+            count += 1
+        elif not visit[i] and not PLACE[i]:
+            count += dfs(i, visit)
+    return count
 
 def program():  # 구동부
-    pivot = 0
-
     if sum(PLACE) < 2:
         print(0)
     elif sum(PLACE) == 2:
         print(2)
     else:
+        global CNT
+        visit = [0 for _ in range(N)]
+        pivot = 0
+
         for _ in range(N - 1):
-            F, T = map(int, input().split())
-            GRAPH[F - 1].append(T - 1)
-            GRAPH[T - 1].append(F - 1)
+            f, t = map(int, input().split())
+            GRAPH[f - 1].append(t - 1)
+            GRAPH[t - 1].append(f - 1)
+
+            if PLACE[f-1] and PLACE[t-1]:
+                CNT += 2
 
         for i in range(N):
             if len(GRAPH[i]) > 2:
@@ -38,13 +41,11 @@ def program():  # 구동부
 
         if pivot:
             for i in range(N):
-                visit = [0 for _ in range(N)]
-                if PLACE[i]:
-                    # print(f"START {i=}")
-                    dfs(i, i, visit)
-
+                if not PLACE[i] and not visit[i]:
+                    res = dfs(i, visit)
+                    CNT += res * (res-1)
             print(CNT)
-            
+
         else:
             print(2*(sum(PLACE)-1))
 
