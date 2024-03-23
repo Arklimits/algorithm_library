@@ -36,7 +36,7 @@ N = int(read())
 arr = []
 
 for _ in range(N):
-    x, r = map(int, input().split())
+    x, r = map(int, read().split())
     arr.append((x+r, r*2))
 
 arr.sort()
