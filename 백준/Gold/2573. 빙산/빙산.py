@@ -25,31 +25,26 @@ def dfs(graph, y, x, visit):
 
             graph[py][px] -= cnt
             if graph[py][px] <= 0:
-                del ICE[ICE.index((py, px))]
+                ICE[(py, px)] = 0
 
     # for y in range(N):
     #     print(graph[y])
-
 def program():
     global ICE, ARR, YEAR
 
     for y in range(1, N-1):
         for x in range(1, M-1):
             if ARR[y][x]:
-                ICE.append((y, x))
+                ICE[(y, x)] = 1
 
-    while ICE:
+    while sum(ICE.values()) > 0:
         cnt = 1
         visit = [[0 for _ in range(M)] for _ in range(N)]
 
-        for _ in range(len(ICE)):
-            if ICE:
-                y, x = ICE.pop(0)
-                ICE.append((y, x))
-                
+        for key, val in ICE.items():
             # print(f"{YEAR=}, {cnt=} {y=} {x=}")
-
-            if not visit[y][x]:
+            y, x = key
+            if not visit[y][x] and val:
                 if cnt > 1:
                     print(YEAR)
                     break
@@ -67,7 +62,7 @@ def program():
 N, M = map(int, input().split())
 YEAR = 0
 ARR = []
-ICE = []
+ICE = {}
 DY = [0, 1, 0, -1]
 DX = [1, 0, -1, 0]
 
