@@ -36,8 +36,6 @@ def bfs(graph):
 
 def program(arr):
     arr = [[list(map(int, input().split())) for _ in range(N)] for _ in range(H)]
-    visit = [[[0] * M for _ in range(N)] for _ in range(H)]
-    visit[0][0][0] = 1
 
     bfs(arr)
 
