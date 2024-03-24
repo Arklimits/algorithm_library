@@ -40,17 +40,13 @@ def program():
 
     while ICE:
         cnt = 1
-        out = 0
         visit = [[0 for _ in range(M)] for _ in range(N)]
 
         for _ in range(len(ICE)):
             if ICE:
                 y, x = ICE.pop(0)
                 ICE.append((y, x))
-            else:
-                out = 1
-                break
-
+                
             # print(f"{YEAR=}, {cnt=} {y=} {x=}")
 
             if not visit[y][x]:
@@ -62,10 +58,6 @@ def program():
         else:
             YEAR += 1
             continue
-
-        if out:
-            continue
-
         break
     else:
         print(0)
