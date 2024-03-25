@@ -1,26 +1,25 @@
 import sys
 from collections import deque
-import heapq
 
 input = sys.stdin.readline
 
 
-def topology(s, e, forward, backward, distance):
+def topology(s, e, forward, backward, connected, distance):
     distance[s] = 0
-    queue = []
-    heapq.heappush(queue, (0, s))
+    queue = deque()
+    queue.append(s)
 
     while queue:
-        cost, node = heapq.heappop(queue)
+        node = queue.popleft()
         # print(f"{node=}, {cost=}, {queue=}, {distance=}")
         # print(f"{visited=}")
-        if distance[node] < cost:
-            continue
-            
-        for pivot, price in forward[node]:
-            if distance[pivot] > cost + price:
-                distance[pivot] = cost + price
-                heapq.heappush(queue, (distance[pivot], pivot))
+        for pivot, cost in forward[node]:
+            connected[pivot] -= 1
+
+            if distance[pivot] > distance[node] + cost:
+                distance[pivot] = distance[node] + cost
+            if connected[pivot] == 0:
+                queue.append(pivot)
 
     print(-distance[e])
 
@@ -48,13 +47,15 @@ if __name__ == '__main__':
 
     FORWARD = [[] for _ in range(N + 1)]
     BACKWARD = [[] for _ in range(N + 1)]
-    DIST = [int(sys.maxsize)] * (N + 1)
+    CONNECT = [0] * (N + 1)
+    DIST = [0] * (N + 1)
 
     for _ in range(M):
         u, v, w = map(int, input().split())
         FORWARD[u].append((v, -w))
         BACKWARD[v].append((u, -w))
+        CONNECT[v] += 1
 
     S, E = map(int, input().split())
 
-    topology(S, E, FORWARD, BACKWARD, DIST)
+    topology(S, E, FORWARD, BACKWARD, CONNECT, DIST)
