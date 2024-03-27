@@ -24,13 +24,13 @@ if __name__ == '__main__':
                     if queue1:
                         temp = heapq.heappop(queue1)
                         id_check[temp[1]] = 0
-                if num == -1:
+                elif num == -1:
                     while queue2 and not id_check[queue2[0][1]]:
                         heapq.heappop(queue2)
                     if queue2:
                         temp = heapq.heappop(queue2)
                         id_check[temp[1]] = 0
-                        
+
         while queue1 and not id_check[queue1[0][1]]:
             heapq.heappop(queue1)
         while queue2 and not id_check[queue2[0][1]]:
