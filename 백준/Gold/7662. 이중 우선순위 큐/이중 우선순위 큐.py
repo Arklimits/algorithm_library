@@ -1,9 +1,8 @@
 import sys
 import heapq
 
-if __name__ == '__main__':
-    n = int(sys.stdin.readline())
 
+def calculate():
     for _ in range(n):
         queue1 = []
         queue2 = []
@@ -19,22 +18,18 @@ if __name__ == '__main__':
                 heapq.heappush(queue2, (num, i))
             else:
                 if num == 1:
-                    while queue1 and not id_check[queue1[0][1]]:
-                        heapq.heappop(queue1)
                     if queue1:
                         temp = heapq.heappop(queue1)
                         id_check[temp[1]] = 0
-                elif num == -1:
-                    while queue2 and not id_check[queue2[0][1]]:
-                        heapq.heappop(queue2)
+                else:
                     if queue2:
                         temp = heapq.heappop(queue2)
                         id_check[temp[1]] = 0
 
-        while queue1 and not id_check[queue1[0][1]]:
-            heapq.heappop(queue1)
-        while queue2 and not id_check[queue2[0][1]]:
-            heapq.heappop(queue2)
+            while queue1 and not id_check[queue1[0][1]]:
+                heapq.heappop(queue1)
+            while queue2 and not id_check[queue2[0][1]]:
+                heapq.heappop(queue2)
 
         if queue1 and queue2:
             num1, i = heapq.heappop(queue1)
@@ -42,3 +37,9 @@ if __name__ == '__main__':
             print(-num1, num2)
         else:
             print('EMPTY')
+
+
+if __name__ == '__main__':
+    n = int(sys.stdin.readline())
+
+    calculate()
