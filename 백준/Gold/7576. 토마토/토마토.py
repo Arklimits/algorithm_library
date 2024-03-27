@@ -2,14 +2,7 @@ import sys
 from collections import deque
 
 
-def bfs(graph):
-    queue = deque()
-
-    for y in range(N):
-        for x in range(M):
-            if graph[y][x] == 1:
-                queue.append((y, x))
-
+def bfs(queue, graph):
     while queue:
         pivot = queue.popleft()
 
@@ -36,9 +29,16 @@ def bfs(graph):
 
 if __name__ == '__main__':
     M, N = map(int, sys.stdin.readline().split())
-    ARR = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
+    QUEUE = deque()
+    ARR = []
+
+    for y in range(N):
+        ARR.append(list(map(int, sys.stdin.readline().split())))
+        for x in range(M):
+            if ARR[y][x] == 1:
+                QUEUE.append((y, x))
 
     DY = [0, 1, 0, -1]
     DX = [1, 0, -1, 0]
 
-    bfs(ARR)
+    bfs(QUEUE, ARR)
