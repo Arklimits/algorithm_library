@@ -10,10 +10,9 @@ def program():
     for _ in range(k):
         heappush(num, arr[_])
 
-    count = 0
     temp = 0
-    
-    while count < n:
+
+    for t in range(n):
         for i in range(k):
             temp = num[0]
             res = arr[i] * num[0]
@@ -24,7 +23,6 @@ def program():
                 break
 
         heappop(num)
-        count += 1
 
     print(temp)
 
