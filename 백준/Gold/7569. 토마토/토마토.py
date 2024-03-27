@@ -1,18 +1,10 @@
 import sys
 from collections import deque
 
-sys.setrecursionlimit(10**4)
 input = sys.stdin.readline
 
-def bfs(graph):
-    queue = deque()
+def bfs(queue, graph):
     res = 0
-
-    for z in range(H):
-        for y in range(N):
-            for x in range(M):
-                if graph[z][y][x] == 1:
-                    queue.append((z, y, x, 1))
 
     while queue:
         z, y, x, cost = queue.popleft()
@@ -35,9 +27,19 @@ def bfs(graph):
     print(res-1)
 
 def program(arr):
-    arr = [[list(map(int, input().split())) for _ in range(N)] for _ in range(H)]
+    que = deque()
+    arr = []
 
-    bfs(arr)
+    for Z in range(H):
+        temp = []
+        for Y in range(N):
+            temp.append(list(map(int, input().split())))
+            for X in range(M):
+                if temp[Y][X] == 1:
+                    que.append((Z, Y, X, 1))
+        arr.append(temp)
+
+    bfs(que, arr)
 
 
 # 선언부
