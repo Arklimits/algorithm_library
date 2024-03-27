@@ -2,7 +2,7 @@ import sys
 from heapq import heappush, heappop
 from collections import deque
 
-if __name__ == '__main__':
+def program():
     n, k = map(int, sys.stdin.readline().split())
     arr = []
     bag = []
@@ -27,3 +27,6 @@ if __name__ == '__main__':
             res += -heappop(can)
 
     print(res)
+
+
+program()
