@@ -4,9 +4,9 @@ from collections import deque
 
 def bfs(sy, sx):
     queue = deque()
-    visited[sy][sx] = 1
-    cnt = 0
+    cnt = 1
     queue.append((sy, sx))
+    ARR[sy][sx] = 2
 
     while queue:
         y, x = queue.popleft()
@@ -16,17 +16,16 @@ def bfs(sy, sx):
             dy, dx = y + DY[i], x + DX[i]
 
             if 0 <= dy < N and 0 <= dx < N:
-                if ARR[dy][dx] and not visited[dy][dx]:
-                    visited[dy][dx] = 1
+                if ARR[dy][dx] == 1:
+                    ARR[dy][dx] = cnt
                     queue.append((dy, dx))
 
-    return cnt
+    return cnt - 1
 
 
 if __name__ == '__main__':
     N = int(sys.stdin.readline())
     ARR = []
-    visited = [[0 for _ in range(N)] for _ in range(N)]
 
     for _ in range(N):
         ARR.append(list(map(int, sys.stdin.readline().strip())))
@@ -37,7 +36,7 @@ if __name__ == '__main__':
     res = []
     for Y in range(N):
         for X in range(N):
-            if ARR[Y][X] and not visited[Y][X]:
+            if ARR[Y][X] == 1:
                 res.append(bfs(Y, X))
                 count += 1
 
