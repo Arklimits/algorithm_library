@@ -1,7 +1,8 @@
 import sys
 from collections import deque
 
-if __name__ == '__main__':
+
+def program():
     text = list(map(str, sys.stdin.readline().strip()))
     explosive = sys.stdin.readline().strip()
     stack = deque()
@@ -30,3 +31,7 @@ if __name__ == '__main__':
         print(''.join(stack))
     else:
         print('FRULA')
+
+
+if __name__ == '__main__':
+    program()
