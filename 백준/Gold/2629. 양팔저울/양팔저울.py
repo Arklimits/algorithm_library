@@ -10,8 +10,7 @@ def dynamic():
     for i in range(WN):
         dp[i + 1] = set(dp[i])
         for j in dp[i]:
-            dp[i + 1].add(abs(j - WEIGHT[i]))
-            dp[i + 1].add(abs(j + WEIGHT[i]))
+            dp[i + 1].add(j + WEIGHT[i])
 
     # print(dp)
 
@@ -19,7 +18,12 @@ def dynamic():
         if biz in dp[WN]:
             print('Y', end=' ')
         else:
-            print('N', end=' ')
+            for weight in dp[WN]:
+                if biz + weight in dp[WN]:
+                    print('Y', end=' ')
+                    break
+            else:
+                print('N', end=' ')
 
 
 if __name__ == '__main__':
