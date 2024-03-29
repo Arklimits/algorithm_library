@@ -4,37 +4,22 @@ import sys
 def dynamic():
     global WEIGHT
 
-    dp = [[0 for _ in range(WN + 1)] for _ in range(WN + 1)]
+    dp = [set() for _ in range(WN + 1)]
+    dp[0].add(0)
 
-    for i in range(1, WN + 1):
-        for j in range(1, WN + 1):
-            if i <= j:
-                dp[i][j] = dp[i - 1][j - 1] + WEIGHT[j - 1]
-            else:
-                if j == 1:
-                    dp[i][j] = WEIGHT[i - 2]
-                else:
-                    dp[i][j] = dp[i - 1][j - 1] + WEIGHT[i - 1]
+    for i in range(WN):
+        dp[i + 1] = set(dp[i])
+        for j in dp[i]:
+            dp[i + 1].add(abs(j - WEIGHT[i]))
+            dp[i + 1].add(abs(j + WEIGHT[i]))
 
-            if dp[i][j] not in WEIGHT:
-                WEIGHT.append(dp[i][j])
-    # 
-    # for _ in range(WN + 1):
-    #     print(dp[_])
-
-    WEIGHT = list(set(WEIGHT))
-    WEIGHT.sort()
+    # print(dp)
 
     for biz in BIZ:
-        if biz in WEIGHT:
+        if biz in dp[WN]:
             print('Y', end=' ')
         else:
-            for weight in WEIGHT:
-                if biz + weight in WEIGHT:
-                    print('Y', end=' ')
-                    break
-            else:
-                print('N', end=' ')
+            print('N', end=' ')
 
 
 if __name__ == '__main__':
