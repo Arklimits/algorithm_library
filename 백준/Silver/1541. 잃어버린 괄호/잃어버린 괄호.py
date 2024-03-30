@@ -33,8 +33,8 @@ def greedy():
                 operator.popleft()
                 idx += 1
                 number[idx] = -abs(number[idx])
-    else:
-        print(sum(number))
+    
+    print(sum(number))
 
 
 if __name__ == '__main__':
