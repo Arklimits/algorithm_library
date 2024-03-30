@@ -1,16 +1,12 @@
 import sys
-from collections import deque
 
 
 def greedy():
     temp = 0
     count = 0
-    meeting = deque(MEETING)
     
-    for i in meeting:
-        if i[0] < temp:
-            continue
-        else:
+    for i in MEETING:
+        if i[0] >= temp:
             temp = i[1]
             count += 1
 
