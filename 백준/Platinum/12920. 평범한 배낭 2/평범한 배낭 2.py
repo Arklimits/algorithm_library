@@ -2,23 +2,16 @@ import sys
 
 
 def dynamic(arr):
-    n = len(arr)
-
-    dp = [[0 for _ in range(K + 1)] for _ in range(n + 1)]
+    dp = [0 for _ in range(K + 1)]
     arr.sort(reverse=True)
-    arr.insert(0, (0, 0, 0))
 
-    for i in range(1, n + 1):
-        for j in range(1, K + 1):
-            if j < arr[i][1]:
-                dp[i][j] = dp[i - 1][j]
-            else:
-                dp[i][j] = max(arr[i][2] + dp[i - 1][j - arr[i][1]], dp[i - 1][j])
+    for v, i, j in arr:
+        for k in range(K, i-1, -1):
+            dp[k] = max(dp[k - i] + j, dp[k])
 
-    # for _ in range(N + 1):
-    #     print(*dp[_])
+            # print(*dp)
 
-    print(dp[n][K])
+    print(dp[K])
 
 
 if __name__ == '__main__':
@@ -35,9 +28,5 @@ if __name__ == '__main__':
             t *= 2
 
     # print(ARR)
-
-    if not len(ARR):
-        print(0)
-        exit()
 
     dynamic(ARR)
