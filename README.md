@@ -1,2 +1,3 @@
-# Week01_Algorithm
+# Algorithm Solution Library
+
 This is an auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
