@@ -21,8 +21,7 @@ int main() {
             val += arr[i] / mid;
 
         if (val >= n) {
-            if (res < mid)
-                res = mid;
+            res = mid;
             start = mid + 1;
         } else
             end = mid - 1;
