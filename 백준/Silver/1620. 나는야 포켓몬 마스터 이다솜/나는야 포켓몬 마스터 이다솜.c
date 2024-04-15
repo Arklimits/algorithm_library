@@ -7,8 +7,8 @@ typedef struct pokemon_t {
     char pokemon[21];
 } pokemon_t;
 
-int compare(const pokemon_t *a, const pokemon_t *b) {
-    return strcmp(a->pokemon, b->pokemon);
+int compare(const void *a, const void *b) {
+    return strcmp(((pokemon_t *)a)->pokemon, ((pokemon_t *)b)->pokemon);
 }
 
 int main() {
@@ -34,26 +34,21 @@ int main() {
         scanf("%s", find);
         if (find[0] >= '0' && find[0] <= '9') {
             num = 0, ten = 1;
-            
             for (j = strlen(find) - 1; j >= 0; --j) {
                 num += (find[j] - '0') * ten;
                 ten *= 10;
             }
             printf("%s\n", list[num - 1].pokemon);
-            
         } else {
             start = 0, end = n;
             while (start <= end) {
                 mid = (start + end) / 2;
                 cmpnum = strcmp(find, ordered_list[mid].pokemon);
-                
                 if (!cmpnum) {
                     printf("%d\n", ordered_list[mid].number);
                     break;
-                    
                 } else if (cmpnum < 0)
                     end = mid - 1;
-                
                 else
                     start = mid + 1;
             }
