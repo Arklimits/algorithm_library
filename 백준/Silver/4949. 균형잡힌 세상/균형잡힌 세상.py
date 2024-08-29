@@ -11,22 +11,17 @@ while 1:
     for i in s:
         if i == '(' or i == '[':
             stack.append(i)
-        elif i == ')':
+        elif i == ')' or i == ']':
+            if i == ')':
+                t = '('
+            else:
+                t = '['
+                
             if len(stack) == 0:
                 print('no')
                 break
             else:
-                if stack[-1] == '(':
-                    stack.pop()
-                else:
-                    print('no')
-                    break
-        elif i == ']':
-            if len(stack) == 0:
-                print('no')
-                break
-            else:
-                if stack[-1] == '[':
+                if stack[-1] == t:
                     stack.pop()
                 else:
                     print('no')
